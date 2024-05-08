@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from authority.views import (
     add_permission,
     delete_permission,
@@ -8,31 +8,31 @@ from authority.views import (
 
 
 urlpatterns = [
-    url(
-        r"^permission/add/(?P<app_label>[\w\-]+)/(?P<module_name>[\w\-]+)/(?P<pk>\d+)/$",
+    path(
+        "permission/add/<app_label>/<module_name>/<int:pk>/",
         view=add_permission,
         name="authority-add-permission",
         kwargs={"approved": True},
     ),
-    url(
-        r"^permission/delete/(?P<permission_pk>\d+)/$",
+    path(
+        "permission/delete/<int:permission_pk>/",
         view=delete_permission,
         name="authority-delete-permission",
         kwargs={"approved": True},
     ),
-    url(
-        r"^request/add/(?P<app_label>[\w\-]+)/(?P<module_name>[\w\-]+)/(?P<pk>\d+)/$",
+    path(
+        "request/add/<app_label>/<module_name>/<int:pk>/",
         view=add_permission,
         name="authority-add-permission-request",
         kwargs={"approved": False},
     ),
-    url(
-        r"^request/approve/(?P<permission_pk>\d+)/$",
+    path(
+        "request/approve/<int:permission_pk>/",
         view=approve_permission_request,
         name="authority-approve-permission-request",
     ),
-    url(
-        r"^request/delete/(?P<permission_pk>\d+)/$",
+    path(
+        "request/delete/<int:permission_pk>/",
         view=delete_permission,
         name="authority-delete-permission-request",
         kwargs={"approved": False},
